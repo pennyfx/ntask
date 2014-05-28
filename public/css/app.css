@@ -15,15 +15,247 @@ body {
   background-color: #333;
 }
 
-body > x-shiftbox {
+ul, li{
+  margin: 0;
+  padding: 0;
+}
+
+x-shiftbox[shift="right"][open] > section {
+  margin-left:-200px
+}
+
+x-shiftbox, aside, section {
   height: 100%;
 }
 
-x-appbar {
+x-shiftbox section {
+  background-color: black;
+}
+
+x-shiftbox > aside {
+  width: 20px;
+  background-color: #444;
+}
+
+.filter-column{
+  float:left;
+}
+
+.filter-column section {
+  background-color: #333;
+}
+
+#columns > x-app-column{
+  height: 100%;
+}
+
+#app.fullscreen .filter-column{
+  width: 320px;
+}
+
+#app.fullscreen #columns{
+  white-space: nowrap;
+  overflow-x: scroll;
+  overflow-y: hidden;
+}
+
+#app.fullscreen #columns > x-app-column{
+  display: inline-block;
+}
+
+#app.phone .filter-column{
+
+}
+
+.filter-column header, .filter-column footer{
+  background-color: #444;
+  border-radius: 4px 4px 2px 2px;
+  color: #efefef;
+  padding: 4px 6px 1px 8px;
+  font-weight: bold;
+  text-align: center;
+}
+.filter-column footer{
+  border-radius: 2px 2px 4px 4px;
+}
+header .add:before{
+  padding: 2px;
+  content: '+';
+  cursor: pointer;
+}
+header .settings:before{
+  padding: 2px;
+  content: '☰';
+  cursor: pointer;
+}
+
+/*header{padding:0;width:100%;display:-webkit-box;display:-moz-box;display:-ms-flexbox;display:-webkit-flex;display:flex;}
+header,header *{-webkit-box-sizing:border-box;-moz-box-sizing:border-box;box-sizing:border-box}
+header > *{border:none;vertical-align:middle;text-align:center;-webkit-flex-align:center;-ms-flex-align:center;-webkit-align-items:center;-webkit-align-items:center;-moz-align-items:center;-ms-align-items:center;align-items:center;text-align:center}
+header > .text{min-width:auto;min-height:auto;-webkit-box-flex:1;-moz-box-flex:1;-webkit-flex:1;-ms-flex:1;box-flex:1;flex:1;overflow:hidden;text-overflow:ellipsis;margin:0}*/
+
+x-layout > section {
+  transform: none;
+}
+
+x-layout > section > :only-child {
+  height: auto;
+}
+
+x-task-edit{
   position: fixed;
+  top: 10%;
+}
+x-task-edit > x-modal{
+  border: solid 2px #444;
+  background-color: #888;
+  padding: 8px;
+  border-radius: 8px;
+  box-shadow: 0px 0px 10px #000;
+  top: inherit;
+  left: 18px;
+  transform: none;
+  max-width: inherit;
+  max-height: inherit;
+  position: absolute;
+}
+
+x-task-edit > x-modal > label {
+  display: block;
+}
+
+x-task-edit > x-modal > label > * {
+  display: block;
+}
+
+x-task-edit > x-modal > label > .tags {
+  width: 262px;
+}
+x-task-edit > x-modal button.save {
+  float: right;
+  margin: 4px 4px 0 0;
+  height: 2em;
+}
+x-task-item{
+  display: block;
+  border-radius: 4px;
+  width: 100%;
+  background-color: #333;
+  /* Box accent bottom  */
+  border-bottom: 1px solid #cc2200;;
+  margin: 10px 0px;
+  box-shadow: 0 1px 3px #000;
+}
+
+x-task-item p.text{
+  color: #00ff00;
+  padding: 10px 5px;
+  background-color: #222;
+  /*  Border  */
+  border: solid 2px #444;
+  white-space: pre-wrap;
+  margin: 0;
+}
+
+x-task-item .edit:before{
+  content: '+';
+  padding: 2px;
+  cursor: pointer;
+}
+
+x-task-item .status-bar{
+  line-height: 1em;
+  padding: 0 3px 2px;
+  /*  Matching Bottom */
+  background-color: #444;
+}
+
+x-task-item .status-bar{
+  color: #777;
+}
+
+x-task-item[tags~="done"]{
+  border-bottom: solid 1px yellow;
+}
+
+x-task-item:hover{
+  box-shadow: 0 2px 4px #444;
+}
+
+.status-bar{padding:0;width:100%;display:-webkit-box;display:-moz-box;display:-ms-flexbox;display:-webkit-flex;display:flex;}
+.status-bar,.status-bar *{-webkit-box-sizing:border-box;-moz-box-sizing:border-box;box-sizing:border-box}
+.status-bar > *{border:none;vertical-align:middle;text-align:center;-webkit-flex-align:center;-ms-flex-align:center;-webkit-align-items:center;-webkit-align-items:center;-moz-align-items:center;-ms-align-items:center;align-items:center;text-align:center}
+.status-bar > .text{min-width:auto;min-height:auto;-webkit-box-flex:1;-moz-box-flex:1;-webkit-flex:1;-ms-flex:1;box-flex:1;flex:1;overflow:hidden;text-overflow:ellipsis;margin:0}
+
+x-app-settings{
+  color: #efefef;
+  background-color:  #222;
+  overflow: hidden;
+  height: auto;
+  border-bottom: solid 2px #444;
+  padding: 0px 4px;
+  margin-top: -98px;
+}
+x-app-settings[transition="hide"]{
+
+}
+x-app-settings[transition] {
+  -webkit-transition: -webkit-margin-top 0.3s ease;
+  -moz-transition: -moz-margin-top 0.3s ease;
+  -o-transition: -o-margin-top 0.3s ease;
+  transition: margin-top 0.3s ease;
+}
+
+x-app-settings[transition="show"]{
+  margin-top: 0px;
+}
+
+x-app-settings > x-app-setting {
+  padding: 8px 4px;
+  list-style-type: none;
+  border-bottom: solid 1px #000;
+}
+
+x-app-setting {
+  display: block;
+}
+x-app-setting, x-app-setting > label {
+  width: 100%;
+}
+x-app-setting > label > span {
+  width: 25%;
+  display: inline-block;
+}
+x-app-setting > label > input[type="text"] {
+  width: 75%;
+}
+
+.autocompleter-list {
+  position: absolute;
+  background-color: white;
+  z-index: 1000;
+}
+.autocompleter-list:focus {
+  border: solid 1px #777;
+  box-shadow: 0px 0px 10px #000;
+}
+ul.autocompleter-list{
+  padding: 0;
+}
+.autocompleter-list li{
+  margin: 0;
+  padding: 0;
+  list-style-type: none;
+}
+.autocompleter-list li:hover, .autocompleter-list li[selected]{
+  background-color: #aaaaff;
+  color: white;
+}
+
+/*x-appbar {
   top:0;
   z-index: 1;
-  font: 2.2rem "MozTT", sans-serif;
+  font: 2.2rem/2.5rem "MozTT", sans-serif;
   background-color: cornflowerblue;
   color: white;
 }
@@ -31,7 +263,6 @@ x-appbar {
 x-appbar > * {
   padding: 8px 10px 0;
   cursor: pointer;
-  display: inline;
 }
 
 x-appbar {
@@ -39,10 +270,14 @@ x-appbar {
   -webkit-box-shadow: 0px 2px 4px rgba(0,0,0,0.5);
   box-shadow: 0px 2px 4px rgba(0,0,0,0.5);
   -webkit-transition: background-color 250ms linear;
-   -moz-transition: background-color 250ms linear;
-   -o-transition: background-color 250ms linear;
-   -ms-transition: background-color 250ms linear;
-   transition: background-color 250ms linear;
+  -moz-transition: background-color 250ms linear;
+  -o-transition: background-color 250ms linear;
+  -ms-transition: background-color 250ms linear;
+  transition: background-color 250ms linear;
+}*/
+
+/*section  {
+
 }
 
 x-slidebox {
@@ -61,26 +296,6 @@ x-task {
   background-color: white;
 }
 
-x-shiftbox > aside > header {
-  display: inline-block;
-  height: 45px;
-  width: 45px;
-  margin: 0;
-  line-height: 49px;
-  background-color: darkorange;
-}
-
-x-shiftbox[shift="downright"][open] > section {
-  top: 49px;
-  left: 49px;
-}
-
-x-shiftbox[shift="right"][open] > section {
-  left: -75%;
-}
-x-shiftbox section {
-  background-color: white;
-}
 
 x-modal {
   z-index: 1;
@@ -117,3 +332,4 @@ menu > button {
   margin: 4px;
   width: 100px;
 }
+*/

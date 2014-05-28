@@ -6,9 +6,8 @@
     "express": "~3.2.1"
   },
   "devDependencies": {
-    "bower": "0.7.0",
     "grunt": "~0.4.0",
-    "grunt-smush-components": "~0.1.1",
+    "grunt-smush-components": "~0.2.0",
     "grunt-contrib-concat": "~0.1.2",
     "grunt-contrib-copy": "~0.4.1",
     "grunt-contrib-jshint": "~0.3.0",

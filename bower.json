@@ -7,6 +7,8 @@
     "x-tag-template": "*",
     "x-tag-appbar": "*",
     "x-tag-mediaquery": "*",
-    "x-tag-modal": "*"
+    "x-tag-modal": "*",
+    "x-tag-layout": "*",
+    "x-tag-text-pattern-matcher": "*"
   }
 }

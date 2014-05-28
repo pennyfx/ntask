@@ -3,47 +3,101 @@
 <head>
   <meta name="viewport" content="user-scalable=no, width=device-width, initial-scale=1, maximum-scale=1">
   <script type="text/javascript" src="js/components.js"></script>
+  <script type="text/javascript" src="js/app.js"></script>
 
   <link rel="stylesheet" type="text/css" href="css/components.css">
   <link rel="stylesheet" type="text/css" href="css/app.css">
 
-</head>
-<body>
+  <x-mediaquery id="fullscreen" for="app" media="only screen and (min-width: 361px)"></x-mediaquery>
+  <x-mediaquery id="phone" for="app" media="only screen and (min-width: 1px) and (max-width:360px)"></x-mediaquery>
 
-  <x-shiftbox shift="right">
+</head>
+<body id="app">
+
+  <x-shiftbox shift="right" >
     <aside>
-      <menu id="sideMenu">
-        <button data-action="sync">Sync</button>
-        <button data-action="refresh">Refresh</button>
-      </menu>
+      <ul>
+        <li>df</li>
+        <li>33</li>
+        <li>2</li>
+        <li>3</li>
+      </ul>
     </aside>
-    <section>
-      <x-appbar><div>=</div><header id="header">Web App Header</header><div>+</div></x-appbar>
-      <section>Main App Content</section>
+    <section id="columns">
+      <x-app-column header-label="First COlumne" footer-label="dfsfd" filter="#done">
+      </x-app-column>
+      <x-app-column header-label="Title and Things" footer-label="blah">
+      </x-app-column>
+      <x-app-column header-label="Title and Things" footer-label="bottom">
+      </x-app-column>
+      <x-app-column header-label="Title and Things" footer-label="rawr">
+      </x-app-column>
     </section>
   </x-shiftbox>
 
-  <x-modal hidden overlay esc-hide>Modal</x-modal>
+  <x-validator-regex id="validateTitle" regex="(\w+)+?" modifiers="g" errorMsg="Invalid Title"></x-validator-regex>
+  <x-validator-regex id="validateTags" regex="^(\s?(\B[#@]{1}[\w-]+))*$" errorMsg="Invalid Tags"></x-validator-regex>
+
+  <x-text-pattern-matcher target="input[name='tag-filter']">
+    <x-pattern-matcher split="(#\w+)" select="#(\w+)" onmatch="matchColors"></x-pattern-matcher>
+    <x-pattern-matcher split="(@\w+)" select="@(\w+)" onmatch="matchUsers"></x-pattern-matcher>
+    <x-pattern-matcher split="(@)" select="@" onmatch="topUsers"></x-pattern-matcher>
+  </x-text-pattern-matcher>
 
 </body>
 
 <script type="text/javascript">
 
-  var appbar = document.querySelector('x-appbar');
   var shiftbox = document.querySelector('x-shiftbox');
-  var modal = document.querySelector('x-modal');
+  //var modal = document.querySelector('x-modal');
 
   xtag.addEvents(document, {
     'tap:delegate(x-appbar > div:first-child)': function(){
       shiftbox.toggle();
     },
     'tap:delegate(x-appbar > div:last-child)': function(){
-      modal.toggle();
+      //modal.toggle();
     },
     'tap:delegate(#sideMenu > button)': function(e){
         console.log('menu action', e.target.dataset.action);
     }
   });
+
+  document.getElementById('fullscreen').addEventListener('mediaqueryactive', function(e){
+    console.log('fullscreen active', shiftbox);
+    //shiftbox.setAttribute('open','');
+  });
+
+  document.getElementById('phone').addEventListener('mediaqueryactive', function(e){
+    console.log('phone active');
+    //shiftbox.removeAttribute('open')
+  });
+
+  function matchUsers(match, callback){
+    var matchedNames = NAMES.filter(function(color){
+      return color.indexOf(match[1]) > -1;
+    }).sort(function(color1, color2){
+      return color1.indexOf(match[1]) < color2.indexOf(match[1]) ? -1 : 1;
+    });
+    callback(matchedNames);
+  }
+
+  function matchColors(match, callback){
+    var matchedColors = CSS_COLOR_NAMES.filter(function(color){
+      return color.indexOf(match[1]) > -1;
+    }).sort(function(color1, color2){
+      return color1.indexOf(match[1]) < color2.indexOf(match[1]) ? -1 : 1;
+    });
+    callback(matchedColors);
+  }
+
+  function topUsers(match, callback){
+    callback(NAMES.slice(0,5));
+  }
+
+var CSS_COLOR_NAMES = ["AliceBlue","AntiqueWhite","Aqua","Aquamarine","Azure","Beige","Bisque","Black","BlanchedAlmond","Blue","BlueViolet","Brown","BurlyWood","CadetBlue","Chartreuse","Chocolate","Coral","CornflowerBlue","Cornsilk","Crimson","Cyan","DarkBlue","DarkCyan","DarkGoldenRod","DarkGray","DarkGrey","DarkGreen","DarkKhaki","DarkMagenta","DarkOliveGreen","Darkorange","DarkOrchid","DarkRed","DarkSalmon","DarkSeaGreen","DarkSlateBlue","DarkSlateGray","DarkSlateGrey","DarkTurquoise","DarkViolet","DeepPink","DeepSkyBlue","DimGray","DimGrey","DodgerBlue","FireBrick","FloralWhite","ForestGreen","Fuchsia","Gainsboro","GhostWhite","Gold","GoldenRod","Gray","Grey","Green","GreenYellow","HoneyDew","HotPink","IndianRed","Indigo","Ivory","Khaki","Lavender","LavenderBlush","LawnGreen","LemonChiffon","LightBlue","LightCoral","LightCyan","LightGoldenRodYellow","LightGray","LightGrey","LightGreen","LightPink","LightSalmon","LightSeaGreen","LightSkyBlue","LightSlateGray","LightSlateGrey","LightSteelBlue","LightYellow","Lime","LimeGreen","Linen","Magenta","Maroon","MediumAquaMarine","MediumBlue","MediumOrchid","MediumPurple","MediumSeaGreen","MediumSlateBlue","MediumSpringGreen","MediumTurquoise","MediumVioletRed","MidnightBlue","MintCream","MistyRose","Moccasin","NavajoWhite","Navy","OldLace","Olive","OliveDrab","Orange","OrangeRed","Orchid","PaleGoldenRod","PaleGreen","PaleTurquoise","PaleVioletRed","PapayaWhip","PeachPuff","Peru","Pink","Plum","PowderBlue","Purple","Red","RosyBrown","RoyalBlue","SaddleBrown","Salmon","SandyBrown","SeaGreen","SeaShell","Sienna","Silver","SkyBlue","SlateBlue","SlateGray","SlateGrey","Snow","SpringGreen","SteelBlue","Tan","Teal","Thistle","Tomato","Turquoise","Violet","Wheat","White","WhiteSmoke","Yellow","YellowGreen"];
+
+var NAMES = ['Kristle-Fluitt','Erwin-Rocha','Irish-Paulsen','Audie-Hedgepeth','Lesia-Frost','Cyndy-Parras','Chau-Rolle','Rudolf-Tingey','Jewel-Franck','Jeromy-Nilsson','Faviola-Alter','Napoleon-Pinegar','Fidel-Presson','Lexie-Albertini','Berenice-Pace','Vonda-Roten','Pia-Olson','Mark-Garbett','Jacinto-Rose','Alease-Lokey','Neida-Roda','Blaine-Glassford','Felton-Tullius','Kieth-Simeon','Neil-Houchens','Lera-Downie','Zoe-Lagarde','Nia-Rohrbaugh','Johna-Rielly','Pansy-Vowell','Waylon-Shanks','Robt-Redmond','Jacinda-Truesdale','Julieann-Rowlands','Altagracia-Primm','Gertrude-Mcgurk','Hans-Mcmurtry','Freeman-Winegar','Christal-Woll','Tiny-Barrientos','Magali-Demay','Celeste-Leandro','Tawanna-Cusic','Leontine-Hausman','Ozella-Cosby','Lenna-Lancon','Belle-Elvira','Liberty-Bristow','Mable-Silvey','Fae-Friel'];
 
 </script>
 </html>
